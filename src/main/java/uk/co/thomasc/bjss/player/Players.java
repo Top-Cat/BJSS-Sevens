@@ -1,4 +1,4 @@
-package uk.co.thomasc.bjss;
+package uk.co.thomasc.bjss.player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,14 @@ public class Players {
     private int index = 0;
 
     public Players() {
-        players.add(new Player());
-        players.add(new Player());
-        players.add(new Player());
+        players.add(new RandomPlayer());
+        players.add(new LowestFirstPlayer());
+        players.add(new HighestFirstPlayer());
+        players.add(new TacticalPlayer());
+    }
+
+    public Player get(int i) {
+        return players.get(i);
     }
 
     public Player next() {
@@ -27,5 +32,11 @@ public class Players {
     public void setStartingPlayer() {
         Optional<Player> startingPlayer = players.stream().filter(Player::hasStartingCard).findAny();
         startingPlayer.ifPresent(player -> index = players.indexOf(player));
+    }
+
+    public void clearHands() {
+        for (Player player : players) {
+            player.emptyHand();
+        }
     }
 }

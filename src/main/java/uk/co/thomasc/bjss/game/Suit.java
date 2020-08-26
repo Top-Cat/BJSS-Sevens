@@ -1,4 +1,4 @@
-package uk.co.thomasc.bjss;
+package uk.co.thomasc.bjss.game;
 
 public enum Suit {
     HEARTS,

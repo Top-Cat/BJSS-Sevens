@@ -1,8 +1,13 @@
 package uk.co.thomasc.bjss;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import uk.co.thomasc.bjss.game.Card;
+import uk.co.thomasc.bjss.game.Suit;
+import uk.co.thomasc.bjss.game.Table;
+import uk.co.thomasc.bjss.player.Player;
+import uk.co.thomasc.bjss.player.Players;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
@@ -12,20 +17,41 @@ public class Main {
 
     private final List<Card> deck = new ArrayList<>();
     private final Players players = new Players();
+    private final Table table = new Table();
 
     private void deal() {
         for (int i = 0; i < 52; i++) {
             deck.add(new Card((i % 13) + 1, Suit.values()[i / 13]));
         }
 
-        Collections.shuffle(deck);
+        Map<Player, AtomicInteger> wins = new HashMap<>();
+        for (int k = 0; k < 50000; k++) {
+            players.clearHands();
+            table.reset();
 
-        for (int i = 0; i < 52; i++) {
-            players.next().giveCard(deck.get(i));
+            Collections.shuffle(deck);
+
+            for (int i = 0; i < 52; i++) {
+                players.next().giveCard(deck.get(i));
+            }
+
+            players.setStartingPlayer();
+
+            while (true) {
+                Player currentPlayer = players.next();
+                currentPlayer.takeTurn(table);
+
+                if (currentPlayer.hasWon()) {
+                    wins.putIfAbsent(currentPlayer, new AtomicInteger());
+                    wins.get(currentPlayer).addAndGet(1);
+                    break;
+                }
+            }
         }
 
-        players.setStartingPlayer();
-        System.out.println("Hi");
+        for (Player player : wins.keySet()) {
+            System.out.println(player.getClass().getCanonicalName() + " : " + wins.get(player).get());
+        }
     }
 
     public Main() {

@@ -1,31 +1,33 @@
 package uk.co.thomasc.bjss;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import org.junit.Test;
+import uk.co.thomasc.bjss.game.Card;
+import uk.co.thomasc.bjss.game.Suit;
+import uk.co.thomasc.bjss.player.Players;
+
+import static org.junit.Assert.assertEquals;
 
 public class PlayersTest {
 
-    private final List<Player> players = new ArrayList<>();
-    private int index = 0;
+    private final Players players = new Players();
 
-    public Players() {
-        players.add(new Player());
-        players.add(new Player());
-        players.add(new Player());
-    }
+    @Test
+    public void testSetStartingPlayer() {
+        players.get(0).giveCard(new Card(4, Suit.CLUBS));
+        players.get(1).giveCard(new Card(7, Suit.HEARTS));
+        players.get(2).giveCard(new Card(7, Suit.DIAMONDS));
 
-    public Player next() {
-        index = (index + 1) % players.size();
-        return peek();
-    }
+        players.setStartingPlayer();
+        assertEquals(players.get(2), players.peek());
 
-    public Player peek() {
-        return players.get(index);
-    }
+        players.get(2).emptyHand();
 
-    public void setStartingPlayer() {
-        Optional<Player> startingPlayer = players.stream().filter(Player::hasStartingCard).findAny();
-        startingPlayer.ifPresent(player -> index = players.indexOf(player));
+        players.setStartingPlayer();
+        assertEquals(players.get(2), players.peek());
+
+        players.get(0).giveCard(new Card(7, Suit.DIAMONDS));
+
+        players.setStartingPlayer();
+        assertEquals(players.get(0), players.peek());
     }
 }
