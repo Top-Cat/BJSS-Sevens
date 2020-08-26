@@ -3,6 +3,7 @@ package uk.co.thomasc.bjss.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Table {
 
@@ -27,5 +28,10 @@ public class Table {
         for (Pile pile : piles) {
             pile.clear();
         }
+    }
+
+    public void printState() {
+        System.out.println(piles.stream().map(it -> it.getHighCard() == null ? "--" : it.getHighCard().cardString()).collect(Collectors.joining(" | ")));
+        System.out.println(piles.stream().map(it -> it.getLowCard() == it.getHighCard() ? "--" : it.getLowCard().cardString()).collect(Collectors.joining(" | ")));
     }
 }

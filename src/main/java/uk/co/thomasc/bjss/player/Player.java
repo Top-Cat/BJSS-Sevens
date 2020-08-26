@@ -5,7 +5,9 @@ import uk.co.thomasc.bjss.game.Suit;
 import uk.co.thomasc.bjss.game.Table;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class Player {
@@ -17,8 +19,18 @@ public abstract class Player {
     }
 
     public Card takeCard(Card card) {
+        System.out.println(String.format("%s played %s", getClass().getSimpleName(), card.cardString()));
+
         hand.remove(card);
         return card;
+    }
+
+    public void skipMessage() {
+        System.out.println(String.format("%s passed", getClass().getSimpleName()));
+    }
+
+    public void sortHand() {
+        hand.sort(Comparator.<Card>comparingInt(o -> o.suit.ordinal()).thenComparingInt(o -> o.value));
     }
 
     public void emptyHand() {
@@ -37,5 +49,10 @@ public abstract class Player {
 
     public boolean hasWon() {
         return hand.size() == 0;
+    }
+
+    public void startGame(Table table) {
+        Optional<Card> startingCard = hand.stream().filter(it -> it.value == 7 && it.suit == Suit.DIAMONDS).findAny();
+        table.place(takeCard(startingCard.get()));
     }
 }

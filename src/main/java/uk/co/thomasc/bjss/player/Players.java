@@ -11,8 +11,7 @@ public class Players {
 
     public Players() {
         players.add(new RandomPlayer());
-        players.add(new LowestFirstPlayer());
-        players.add(new HighestFirstPlayer());
+        players.add(new HumanPlayer());
         players.add(new TacticalPlayer());
     }
 
@@ -37,6 +36,12 @@ public class Players {
     public void clearHands() {
         for (Player player : players) {
             player.emptyHand();
+        }
+    }
+
+    public void sortHands() {
+        for (Player player : players) {
+            player.sortHand();
         }
     }
 }

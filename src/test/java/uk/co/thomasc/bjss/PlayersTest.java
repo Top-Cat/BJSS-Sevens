@@ -1,11 +1,11 @@
 package uk.co.thomasc.bjss;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import uk.co.thomasc.bjss.game.Card;
 import uk.co.thomasc.bjss.game.Suit;
 import uk.co.thomasc.bjss.player.Players;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlayersTest {
 

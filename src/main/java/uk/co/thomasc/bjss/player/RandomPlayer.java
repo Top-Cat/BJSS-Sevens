@@ -15,6 +15,8 @@ public class RandomPlayer extends Player {
         if (playable.size() > 0) {
             Collections.shuffle(playable);
             table.place(takeCard(playable.get(0)));
+        } else {
+            skipMessage();
         }
     }
 }

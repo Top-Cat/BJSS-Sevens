@@ -11,6 +11,14 @@ public class Pile {
         this.suit = suit;
     }
 
+    public Card getHighCard() {
+        return highCard;
+    }
+
+    public Card getLowCard() {
+        return lowCard;
+    }
+
     public boolean canPlace(Card card) {
         if (card.suit != suit) {
             return false;
