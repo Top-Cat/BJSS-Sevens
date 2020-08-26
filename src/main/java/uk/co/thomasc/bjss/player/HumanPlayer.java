@@ -21,17 +21,21 @@ public class HumanPlayer extends Player {
 
         System.out.println(hand.stream().map(it -> String.format("%d) %s", hand.indexOf(it), table.canPlace(it) ? (ANSI_GREEN + it.cardString() + ANSI_RESET) : it.cardString())).collect(Collectors.joining(", ")));
 
-        System.out.print("\nPick a card: ");
-        try {
-            int i = Integer.parseInt(br.readLine());
-            Card toPlace = hand.get(i);
-            if (table.canPlace(toPlace)) {
-                table.place(takeCard(toPlace));
-            } else {
+        while (true) {
+            System.out.print("\nPick a card: ");
+            try {
+                int i = Integer.parseInt(br.readLine());
+                Card toPlace = hand.get(i);
+                if (table.canPlace(toPlace)) {
+                    table.place(takeCard(toPlace));
+                    break;
+                }
+            } catch (NumberFormatException | IOException ignored) {};
+            if (getPlayableCards(table).size() == 0) {
                 skipMessage();
+                break;
             }
-        } catch (NumberFormatException | IOException e) {
-            skipMessage();
+            System.out.println("You can't skip if you have playable cards");
         }
     }
 }

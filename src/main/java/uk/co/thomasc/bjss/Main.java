@@ -41,7 +41,7 @@ public class Main {
         }
 
         for (Player player : wins.keySet()) {
-            System.out.println(player.getClass().getName() + " : " + wins.get(player).get());
+            System.out.println(player.getClass().getSimpleName() + " : " + wins.get(player).get());
         }
     }
 
@@ -66,7 +66,7 @@ public class Main {
             currentPlayer.takeTurn(table);
 
             if (currentPlayer.hasWon()) {
-                System.out.println(currentPlayer.getClass().getName() + " has won");
+                System.out.println(currentPlayer.getClass().getSimpleName() + " has won");
                 break;
             }
         }
