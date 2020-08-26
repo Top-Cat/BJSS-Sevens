@@ -31,7 +31,7 @@ public class HumanPlayer extends Player {
                 skipMessage();
             }
         } catch (NumberFormatException | IOException e) {
-            e.printStackTrace();
+            skipMessage();
         }
     }
 }
