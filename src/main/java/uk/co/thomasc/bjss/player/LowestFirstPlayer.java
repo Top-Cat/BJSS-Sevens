@@ -13,6 +13,7 @@ public class LowestFirstPlayer extends Player {
         List<Card> playable = getPlayableCards(table);
 
         if (playable.size() > 0) {
+            // Sort such that the card closest to a 7 is played first
             playable.sort(Comparator.comparingInt(o -> Math.abs(7 - o.value)));
             table.place(takeCard(playable.get(0)));
         } else {

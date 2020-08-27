@@ -30,11 +30,13 @@ public class HumanPlayer extends Player {
                     table.place(takeCard(toPlace));
                     break;
                 }
-            } catch (NumberFormatException | IOException ignored) {};
+            } catch (NumberFormatException | IOException ignored) {}
+
             if (getPlayableCards(table).size() == 0) {
                 skipMessage();
                 break;
             }
+
             System.out.println("You can't skip if you have playable cards");
         }
     }

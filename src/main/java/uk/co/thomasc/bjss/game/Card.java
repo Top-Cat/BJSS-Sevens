@@ -1,7 +1,5 @@
 package uk.co.thomasc.bjss.game;
 
-import java.util.Objects;
-
 public class Card {
     public final int value;
     public final Suit suit;

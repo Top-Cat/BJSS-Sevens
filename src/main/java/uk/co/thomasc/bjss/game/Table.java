@@ -32,6 +32,7 @@ public class Table {
 
     public void printState() {
         System.out.println(piles.stream().map(it -> it.getHighCard() == null ? "--" : it.getHighCard().cardString()).collect(Collectors.joining(" | ")));
+        // If low == high either both are null or both are a seven so we only print it at the top
         System.out.println(piles.stream().map(it -> it.getLowCard() == it.getHighCard() ? "--" : it.getLowCard().cardString()).collect(Collectors.joining(" | ")));
     }
 }
