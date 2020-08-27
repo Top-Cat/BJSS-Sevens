@@ -4,7 +4,6 @@ import uk.co.thomasc.bjss.game.Card;
 import uk.co.thomasc.bjss.game.Table;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
@@ -30,7 +29,7 @@ public class HumanPlayer extends Player {
                     table.place(takeCard(toPlace));
                     break;
                 }
-            } catch (NumberFormatException | IOException ignored) {}
+            } catch (Exception ignored) {}
 
             if (getPlayableCards(table).size() == 0) {
                 skipMessage();
